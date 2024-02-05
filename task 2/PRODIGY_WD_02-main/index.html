@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/stopwatch.css">
+    <title>Stopwatch</title>
+</head>
+
+<body>
+    <h1><i class="fa-solid fa-stopwatch"></i> Stopwatch</h1>
+    <div class="container">
+        <div class="time">
+            00:00:00
+        </div>
+
+        <div class="controls">
+            <button id="start">Start</button>
+            <button id="lap">Lap</button>
+            <button id="stop">Stop</button>
+            <button id="reset">Reset</button>
+        </div>
+        <div class="lapping">
+            <h4 id = "lap1"> </h4>
+            <h4 id = "lap2"> </h4>
+            <h4 id = "lap3"> </h4>
+            <h4 id = "lap4"> </h4>
+            <h4 id = "lap5"> </h4>
+        </div>
+    </div>
+
+    <footer><p>Made with ❤ by Nandish bc</p></footer>
+    
+    <script src="../assets/Js/stopwatch.js"></script>
+</body>
+</html>
+<style type="text/css">@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #082032;
+    color: whitesmoke;
+}
+
+h1 {
+    margin: 10px 0 0 20px;
+    user-select: none;
+}
+
+footer {
+    text-align: center;
+    user-select: none;
+}
+
+.container {
+    background: #334756;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    max-width: 400px;
+    margin: 150px auto;
+    padding: 25px;
+    border-radius: 5px;
+}
+
+.time {
+    font-size: 5rem;
+    margin-bottom: 10px;
+    user-select: none;
+}
+
+.controls button {
+    background-color: #FF4C29;
+    margin: 10px 5px;
+    padding: 10px 20px 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: none;
+    transition: 0.8s;
+    cursor: pointer;
+}
+
+.controls button:hover {
+    background-color: transparent;
+    color: whitesmoke;
+}
+
+@media(max-width:480px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+    .container {
+        max-width: 200px;
+    }
+    .time {
+        font-size: 2rem;
+    }
+    .controls button {
+        padding: 5px;
+        margin: 0.5px;
+    }
+}</style><script type="text/javascript">var time_ele = document.getElementsByClassName("time")[0];
+var start_btn = document.getElementById("start");
+var lap_btn = document.getElementById("lap");
+var stop_btn = document.getElementById("stop");
+var reset_btn = document.getElementById("reset");
+var l1 = document.getElementById("lap1");
+var l2 = document.getElementById("lap2");
+var l3 = document.getElementById("lap3");
+var l4 = document.getElementById("lap4");
+var l5 = document.getElementById("lap5");
+
+let seconds = 0;
+let interval = null;
+let ctr=0;
+
+start_btn.addEventListener("click", start);
+lap_btn.addEventListener("click", lap);
+stop_btn.addEventListener("click", stop);
+reset_btn.addEventListener("click", reset);
+
+
+function timer() {
+    seconds++;
+
+
+    let hrs = Math.floor(seconds / 3600);
+    let mins = Math.floor((seconds - (hrs * 3600)) / 60);
+    let sec = seconds % 60;
+
+    if(sec < 10)
+        sec = '0' + sec;
+    
+    if(mins < 10)
+        mins = '0' + mins;
+    
+    if(hrs < 10)
+        hrs = '0' + hrs;
+
+    time_ele.innerHTML = `${hrs}:${mins}:${sec}`;
+}
+
+function start() {
+    if(interval)
+    {
+        return;
+    }
+
+    interval = setInterval(timer, 1000);
+}
+
+function lap() {
+    ctr++;
+    if(ctr%5==1)
+        l1.innerHTML="Lap "+ ctr+ ":  " + time_ele.innerHTML;
+    if (ctr%5==2)
+        l2.innerHTML="Lap "+ ctr+ ":  " + time_ele.innerHTML;
+    if (ctr%5==3)
+        l3.innerHTML="Lap "+ ctr+ ":  " + time_ele.innerHTML;
+    if (ctr%5==4)
+        l4.innerHTML="Lap "+ ctr+ ":  " + time_ele.innerHTML;
+    if (ctr%5==0)
+        l5.innerHTML="Lap "+ ctr+ ":  " + time_ele.innerHTML;
+
+}
+
+function stop() {
+    clearInterval(interval);
+    interval = null;
+}
+
+function reset() {
+    stop();
+    seconds = 0;
+    ctr=0;
+    time_ele.innerHTML = "00:00:00";
+}</script>
